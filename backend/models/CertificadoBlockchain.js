@@ -1,29 +1,41 @@
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/database');
+const sequelize = require('../config/database');
+const Certificado = require('./Certificado');
 
 const CertificadoBlockchain = sequelize.define('CertificadoBlockchain', {
-  idCertificadoBlockchain: {
+  id_blockchain: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  idCertificado: {
+  id_certificado: {
     type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Certificado,
+      key: 'id_certificado'
+    }
+  },
+  hash_certificado: {
+    type: DataTypes.STRING(255),
     allowNull: false,
     unique: true
   },
-  hash: {
-    type: DataTypes.STRING(128),
+  direccion_contrato: {
+    type: DataTypes.STRING(100),
     allowNull: false
   },
-  transactionId: {
-    type: DataTypes.STRING(128),
-    allowNull: true
+  id_transaccion: {
+    type: DataTypes.STRING(100),
+    allowNull: false
   },
-  fechaRegistro: {
+  bloque: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  fecha_registro: {
     type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW
+    allowNull: false
   }
 }, {
   tableName: 'CertificadoBlockchain',

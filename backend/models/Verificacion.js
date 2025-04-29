@@ -1,31 +1,45 @@
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/database');
+const sequelize = require('../config/database');
+const Certificado = require('./Certificado');
+const Usuario = require('./Usuario');
 
 const Verificacion = sequelize.define('Verificacion', {
-  idVerificacion: {
+  id_verificacion: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  idCertificado: {
+  id_certificado: {
     type: DataTypes.INTEGER,
-    allowNull: true
+    allowNull: false,
+    references: {
+      model: Certificado,
+      key: 'id_certificado'
+    }
   },
-  idUsuario: {
+  id_usuario_verificador: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: Usuario,
+      key: 'id_usuario'
+    }
   },
-  fechaVerificacion: {
+  fecha_verificacion: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW
   },
   resultado: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.ENUM('VALIDO', 'INVALIDO', 'REVOCADO'),
     allowNull: false
   },
-  detalles: {
-    type: DataTypes.STRING(255),
+  direccion_ip: {
+    type: DataTypes.STRING(50),
+    allowNull: true
+  },
+  dispositivo: {
+    type: DataTypes.STRING(100),
     allowNull: true
   }
 }, {

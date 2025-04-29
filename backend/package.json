@@ -1,0 +1,28 @@
+{
+  "name": "mi-proyecto-blockchain-backend",
+  "version": "1.0.0",
+  "description": "Backend for IngSoftware blockchain project with MySQL and Sequelize",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "sync-db": "node -e \"const { sequelize } = require('./models'); sequelize.sync({ alter: true }).then(() => { console.log('Database synchronized successfully.'); process.exit(0); }).catch(err => { console.error('Error synchronizing database:', err); process.exit(1); });\""
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mysql2": "^3.3.3",
+    "sequelize": "^6.32.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
